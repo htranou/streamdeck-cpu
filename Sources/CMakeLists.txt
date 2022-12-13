@@ -19,10 +19,13 @@ set(
 set(CMAKE_CXX_STANDARD 11)
 set(CXX_STANDARD_REQUIRED true)
 add_definitions(-DUNICODE=1)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")
 
 if (MSVC)
   add_definitions("/Zc:__cplusplus" -DUNICODE=1)
 endif()
+
+
 
 #boost
 find_package(Boost REQUIRED)
@@ -48,3 +51,5 @@ add_executable(
 )
 
 target_link_libraries(cpu StreamDeckSDK pdh ws2_32)
+target_link_options(cpu PRIVATE -static-libgcc -static-libstdc++)
+
