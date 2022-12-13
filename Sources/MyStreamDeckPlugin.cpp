@@ -12,6 +12,7 @@
 
 #include "MyStreamDeckPlugin.h"
 #include <atomic>
+#include <thread>
 
 #ifdef __APPLE__
 	#include "macOS/CpuUsageHelper.h"

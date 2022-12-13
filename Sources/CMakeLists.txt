@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
+cmake_policy(SET CMP0074 NEW)
+
 project(com.elgato.cpu VERSION 1.2)
 
 if (APPLE)
@@ -16,10 +18,17 @@ set(
 
 set(CMAKE_CXX_STANDARD 11)
 set(CXX_STANDARD_REQUIRED true)
+add_definitions(-DUNICODE=1)
+
 if (MSVC)
   add_definitions("/Zc:__cplusplus" -DUNICODE=1)
 endif()
+
+#boost
+find_package(Boost REQUIRED)
+
 include_directories("${CMAKE_SOURCE_DIR}")
+include_directories("${Boost_INCLUDE_DIR}")
 
 include("StreamDeckSDK.cmake")
 
@@ -37,4 +46,5 @@ add_executable(
   cpu
   ${SOURCES}
 )
-target_link_libraries(cpu StreamDeckSDK)
+
+target_link_libraries(cpu StreamDeckSDK pdh ws2_32)
